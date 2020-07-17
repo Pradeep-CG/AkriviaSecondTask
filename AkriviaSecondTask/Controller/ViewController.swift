@@ -10,22 +10,34 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController{
-
+    
     let locationManager = CLLocationManager()
     
     @IBOutlet weak var latValue: UILabel!
     @IBOutlet weak var lonValue: UILabel!
     @IBOutlet weak var addressValue: UILabel!
+    @IBOutlet weak var cityName: UILabel!
+    @IBOutlet weak var sunrise: UILabel!
+    @IBOutlet weak var sunset: UILabel!
+    @IBOutlet weak var tempreture: UILabel!
+    @IBOutlet weak var minTempreture: UILabel!
+    @IBOutlet weak var maxTempreture: UILabel!
+    @IBOutlet weak var Description: UILabel!
+    @IBOutlet weak var date: UILabel!
+    
+    var httpUtility:HttpUtility?
+    var currentLocationValue: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        httpUtility = HttpUtility()
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
-
+        
         // For use in foreground
         //self.locationManager.requestWhenInUseAuthorization()
-
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -35,48 +47,89 @@ class ViewController: UIViewController{
 }
 
 extension ViewController: CLLocationManagerDelegate{
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
         
-        self.latValue.text = String(format: "%.4f", locValue.latitude)
-        self.lonValue.text = String(format: "%.4f", locValue.longitude)
-        let loc: CLLocation = CLLocation(latitude:locValue.latitude, longitude: locValue.longitude)
-        let ceo: CLGeocoder = CLGeocoder()
-        ceo.reverseGeocodeLocation(loc, completionHandler:
-            {(placemarks, error) in
-                if (error != nil)
-                {
-                    print("reverse geodcode fail: \(error!.localizedDescription)")
-                }
-                let pm = placemarks! as [CLPlacemark]
-
-                if pm.count > 0 {
-                    let pm = placemarks![0]
-
-                    var addressString : String = ""
-                    if pm.subLocality != nil {
-                        addressString = addressString + pm.subLocality! + ", "
+        if currentLocationValue == nil {
+            guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+            print("locations = \(locValue.latitude) \(locValue.longitude)")
+            currentLocationValue = locValue
+            self.latValue.text = String(format: "%.4f", locValue.latitude)
+            self.lonValue.text = String(format: "%.4f", locValue.longitude)
+            let loc: CLLocation = CLLocation(latitude:locValue.latitude, longitude: locValue.longitude)
+            let ceo: CLGeocoder = CLGeocoder()
+            var cityName = ""
+            
+            ceo.reverseGeocodeLocation(loc, completionHandler:
+                {(placemarks, error) in
+                    if (error != nil)
+                    {
+                        print("reverse geodcode fail: \(error!.localizedDescription)")
                     }
-                    if pm.thoroughfare != nil {
-                        addressString = addressString + pm.thoroughfare! + ", "
+                    let pm = placemarks! as [CLPlacemark]
+                    
+                    if pm.count > 0 {
+                        let pm = placemarks![0]
+                        
+                        var addressString : String = ""
+                        if pm.subLocality != nil {
+                            addressString = addressString + pm.subLocality! + ", "
+                        }
+                        if pm.thoroughfare != nil {
+                            addressString = addressString + pm.thoroughfare! + ", "
+                        }
+                        if pm.locality != nil {
+                            addressString = addressString + pm.locality! + ", "
+                            cityName = pm.locality ?? "Bangalore"
+                        }
+                        if pm.country != nil {
+                            addressString = addressString + pm.country! + ", "
+                        }
+                        if pm.postalCode != nil {
+                            addressString = addressString + pm.postalCode! + " "
+                        }
+                        
+                        
+                        print(addressString)
+                        self.addressValue.text = addressString
+                        self.retrieveWeatherDataFromApi(cityName: cityName)
                     }
-                    if pm.locality != nil {
-                        addressString = addressString + pm.locality! + ", "
-                    }
-                    if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
-                    }
-                    if pm.postalCode != nil {
-                        addressString = addressString + pm.postalCode! + " "
-                    }
-
-
-                    print(addressString)
-                    self.addressValue.text = addressString
-              }
-        })
-        manager.stopUpdatingLocation()
+            })
+        }
+    }
+    
+    func retrieveWeatherDataFromApi(cityName:String) {
+        
+        
+        let weatherApiUrlString = "\(Common.weatherApi)\(cityName)\(Common.weatherApiKey)"
+        print("weatherApiUrlString = \(weatherApiUrlString)")
+        
+        httpUtility?.getApiData(requestUrl: weatherApiUrlString, resultType: WeatherResponse.self) { (weatherResponse) in
+            
+            debugPrint("WeatherResponse = \(weatherResponse)")
+            
+            let name = weatherResponse.name
+            let description = weatherResponse.weather[0].weatherDescription
+            let temp = weatherResponse.main.temp
+            let mxTemp = weatherResponse.main.tempMax
+            let minTemp = weatherResponse.main.tempMin
+            let dt = Double(weatherResponse.dt)
+            let sunrise = weatherResponse.sys.sunrise
+            let sunset = weatherResponse.sys.sunset
+            
+            print("name = \(name)")
+            print("description = \(description)")
+            print("temp = \(temp)")
+            print("mxTemp =\(mxTemp)")
+            print("minTemp = \(minTemp)")
+            print("dt = \(dt)")
+            print("sunrise = \(sunrise)")
+            print("sunset = \(sunset)")
+            
+            DispatchQueue.main.sync {
+                
+            }
+        }
+        
     }
 }
