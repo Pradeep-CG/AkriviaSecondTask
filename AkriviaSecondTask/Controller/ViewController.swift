@@ -24,6 +24,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var maxTempreture: UILabel!
     @IBOutlet weak var Description: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var weatherView: UIView!
     
     var httpUtility:HttpUtility?
     var currentLocationValue: CLLocationCoordinate2D?
@@ -31,6 +32,7 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.weatherView.layer.cornerRadius = 10.0
         httpUtility = HttpUtility()
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
@@ -117,17 +119,23 @@ extension ViewController: CLLocationManagerDelegate{
             let sunrise = weatherResponse.sys.sunrise
             let sunset = weatherResponse.sys.sunset
             
-            print("name = \(name)")
-            print("description = \(description)")
-            print("temp = \(temp)")
-            print("mxTemp =\(mxTemp)")
-            print("minTemp = \(minTemp)")
-            print("dt = \(dt)")
-            print("sunrise = \(sunrise)")
-            print("sunset = \(sunset)")
-            
             DispatchQueue.main.sync {
+                let tempreture = Common.convertTemp(temp: temp , from: .kelvin, to: .celsius)
+                let maxTempreture = Common.convertTemp(temp: mxTemp, from: .kelvin, to: .celsius)
+                let minTempreture = Common.convertTemp(temp: minTemp, from: .kelvin, to: .celsius)
                 
+                print("name = \(name)")
+                print("description = \(description)")
+                self.Description.text = "Today:\(description).It's \(tempreture); The high will be \(maxTempreture). Clear tonight with a low of \(minTempreture)"
+                self.tempreture.text = tempreture
+                self.maxTempreture.text = maxTempreture
+                self.minTempreture.text = minTempreture
+                print("dt = \(dt)")
+                let dateString = Common.convertEpocToTime(epocValue: dt)
+                self.date.text = dateString
+                self.sunrise.text = Common.convertEpocToTime(epocValue: Double(sunrise))
+                self.sunset.text = Common.convertEpocToTime(epocValue: Double(sunset))
+                print("sunset = \(sunset)")
             }
         }
         
