@@ -32,7 +32,7 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.weatherView.layer.cornerRadius = 10.0
+        self.weatherView.layer.cornerRadius = 20.0
         httpUtility = HttpUtility()
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()

@@ -12,10 +12,12 @@ struct HttpUtility{
     
     func getApiData<T:Decodable>(requestUrl:String,resultType: T.Type, completionHandler:@escaping(_ result:T) -> Void) {
         
+        let escapedString = requestUrl.replacingOccurrences(of: " ", with: "%20")
+        print(escapedString)
         
-        if Common.verifyUrl(urlString: requestUrl) {
+        if Common.verifyUrl(urlString: escapedString) {
             
-            let requestApiUrl = URL(string: requestUrl)!
+            let requestApiUrl = URL(string: escapedString)!
             URLSession.shared.dataTask(with: requestApiUrl) { (responseData, httpUrlResponse, error) in
                 
                 if(error == nil && httpUrlResponse != nil && responseData?.count != 0){

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,18 +12,18 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whether" translatesAutoresizingMaskIntoConstraints="NO" id="jrA-kG-gkW">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jrA-kG-gkW" secondAttribute="trailing" id="1cz-Gg-AO8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jrA-kG-gkW" secondAttribute="bottom" id="CGW-jJ-xnZ"/>
-                            <constraint firstItem="jrA-kG-gkW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lpn-r6-P3w"/>
+                            <constraint firstAttribute="trailing" secondItem="jrA-kG-gkW" secondAttribute="trailing" id="1cz-Gg-AO8"/>
+                            <constraint firstAttribute="bottom" secondItem="jrA-kG-gkW" secondAttribute="bottom" id="CGW-jJ-xnZ"/>
+                            <constraint firstItem="jrA-kG-gkW" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Lpn-r6-P3w"/>
                             <constraint firstItem="jrA-kG-gkW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NBU-6z-Urr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
