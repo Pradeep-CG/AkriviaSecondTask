@@ -13,6 +13,7 @@
 		27561B4B24C1EFDD0059BE05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27561B4924C1EFDD0059BE05 /* Main.storyboard */; };
 		27561B4D24C1EFE40059BE05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27561B4C24C1EFE40059BE05 /* Assets.xcassets */; };
 		27561B5024C1EFE40059BE05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27561B4E24C1EFE40059BE05 /* LaunchScreen.storyboard */; };
+		277E3D2124C201760095DC87 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E3D2024C201760095DC87 /* Common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		27561B4C24C1EFE40059BE05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27561B4F24C1EFE40059BE05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27561B5124C1EFE40059BE05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		277E3D2024C201760095DC87 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,48 @@
 		27561B4224C1EFDD0059BE05 /* AkriviaSecondTask */ = {
 			isa = PBXGroup;
 			children = (
+				277E3D2224C201E00095DC87 /* Services */,
+				277E3D2424C201F60095DC87 /* Common */,
+				277E3D2324C201EA0095DC87 /* Model */,
+				277E3D2524C202080095DC87 /* Controller */,
 				27561B4324C1EFDD0059BE05 /* AppDelegate.swift */,
 				27561B4524C1EFDD0059BE05 /* SceneDelegate.swift */,
-				27561B4724C1EFDD0059BE05 /* ViewController.swift */,
 				27561B4924C1EFDD0059BE05 /* Main.storyboard */,
 				27561B4C24C1EFE40059BE05 /* Assets.xcassets */,
 				27561B4E24C1EFE40059BE05 /* LaunchScreen.storyboard */,
 				27561B5124C1EFE40059BE05 /* Info.plist */,
 			);
 			path = AkriviaSecondTask;
+			sourceTree = "<group>";
+		};
+		277E3D2224C201E00095DC87 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		277E3D2324C201EA0095DC87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		277E3D2424C201F60095DC87 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				277E3D2024C201760095DC87 /* Common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		277E3D2524C202080095DC87 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				27561B4724C1EFDD0059BE05 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				277E3D2124C201760095DC87 /* Common.swift in Sources */,
 				27561B4824C1EFDD0059BE05 /* ViewController.swift in Sources */,
 				27561B4424C1EFDD0059BE05 /* AppDelegate.swift in Sources */,
 				27561B4624C1EFDD0059BE05 /* SceneDelegate.swift in Sources */,
